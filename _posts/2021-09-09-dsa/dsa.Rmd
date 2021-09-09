@@ -140,8 +140,4 @@ ggarrange(fa, va, ca, rs, ch, fSO2, tSO2, density, pH, sulphates, alcohol,
           ncol = 4, nrow = 3)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
-
-Learn more about using Distill at <https://rstudio.github.io/distill>.
-
 
