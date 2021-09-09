@@ -1,0 +1,19 @@
+[
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to Data Science and Analytics",
+    "description": "Welcome to our new blog, Data Science and Analytics. We hope you enjoy \nreading what we have to say!",
+    "author": [
+      {
+        "name": "Sherman Ding",
+        "url": "https://www.linkedin.com/in/shermanding93/"
+      }
+    ],
+    "date": "2021-09-09",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-09-09T16:59:19+08:00",
+    "input_file": {}
+  }
+]
