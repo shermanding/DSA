@@ -1,8 +1,8 @@
 ---
 title: "Welcome to Data Science and Analytics"
 description: |
-  Welcome to our new blog, Data Science and Analytics. We hope you enjoy 
-  reading what we have to say!
+  Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy 
+  reading my views!
 author:
   - name: Sherman Ding
     url: https://www.linkedin.com/in/shermanding93/
@@ -22,9 +22,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-# 1.0 Overview
+## Introduction
 
-Test first post.
-
+I am a research analyst at a capital markets family office covering US/China equities and Fixed Income. Strategies that I run for discretionary portfolio are macro and event-driven. Focus on TMT sector and traditional fundamental valuations. I am currently pursuing a Master's in Quantitative Finance with the hope to transition towards quantitative research and systematic trading using computational finance and statistical inference.
 
 
