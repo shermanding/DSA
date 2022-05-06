@@ -1,7 +1,7 @@
-name: "DSA"
-title: "Data Science and Analytics"
+name: "QuantWeave"
+title: "An exploratory quantitative blog"
 description: |
-  Data Science and Analytics
+  All things Quant
 output_dir: "_site"
 navbar:
   right:
