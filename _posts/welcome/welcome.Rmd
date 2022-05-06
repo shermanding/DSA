@@ -1,8 +1,7 @@
 ---
 title: "Welcome to QuantWeave"
 description: |
-  Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy 
-  reading my views!
+  Welcome to QuantWeave, a blog where I share certain applications of quantitative finance and a myriad of learning areas.
 author:
   - name: Sherman Ding
     url: https://www.linkedin.com/in/shermanding93/
@@ -22,8 +21,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-## Introduction
+## About QuantWeave
 
-Introduction.
+Founded on the belief of exploring quantitative applications in the world of centralized and decentralized finance.
 
 
