@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,7 +77,7 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
@@ -85,8 +85,9 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
-  <title>Welcome to Data Science and Analytics</title>
+  <title>Welcome to QuantWeave</title>
 
   <meta property="description" itemprop="description" content="Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy &#10;reading my views!"/>
 
@@ -97,21 +98,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="article:author" content="Sherman Ding"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Welcome to Data Science and Analytics"/>
+  <meta property="og:title" content="Welcome to QuantWeave"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy &#10;reading my views!"/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Welcome to Data Science and Analytics"/>
+  <meta property="twitter:title" content="Welcome to QuantWeave"/>
   <meta property="twitter:description" content="Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy &#10;reading my views!"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Welcome to Data Science and Analytics"]},{"type":"character","attributes":{},"value":["Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy \nreading my views!\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Sherman Ding"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/shermanding93/"]},{"type":"character","attributes":{},"value":["Singapore Management University"]},{"type":"character","attributes":{},"value":["https://www.smu.edu.sg/"]}]}]},{"type":"character","attributes":{},"value":["09-09-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Welcome to QuantWeave"]},{"type":"character","attributes":{},"value":["Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy \nreading my views!\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Sherman Ding"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/shermanding93/"]},{"type":"character","attributes":{},"value":["Singapore Management University"]},{"type":"character","attributes":{},"value":["https://www.smu.edu.sg/"]}]}]},{"type":"character","attributes":{},"value":["09-09-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1263,7 +1264,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1434,8 +1438,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="welcome_files/header-attrs-2.10/header-attrs.js"></script>
-  <script src="welcome_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="welcome_files/header-attrs-2.14/header-attrs.js"></script>
+  <script src="welcome_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="welcome_files/popper-2.6.0/popper.min.js"></script>
   <link href="welcome_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="welcome_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -1455,7 +1459,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Welcome to Data Science and Analytics","description":"Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy \nreading my views!","authors":[{"author":"Sherman Ding","authorURL":"https://www.linkedin.com/in/shermanding93/","affiliation":"Singapore Management University","affiliationURL":"https://www.smu.edu.sg/","orcidID":""}],"publishedDate":"2021-09-09T00:00:00.000+08:00","citationText":"Ding, 2021"}
+{"title":"Welcome to QuantWeave","description":"Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy \nreading my views!","authors":[{"author":"Sherman Ding","authorURL":"https://www.linkedin.com/in/shermanding93/","affiliation":"Singapore Management University","affiliationURL":"https://www.smu.edu.sg/","orcidID":""}],"publishedDate":"2021-09-09T00:00:00.000+08:00","citationText":"Ding, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1465,22 +1469,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Welcome to Data Science and Analytics</h1>
+<h1>Welcome to QuantWeave</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Welcome to my blog, where I share my views on Data Science, Analytics and Economics. I hope you enjoy reading my views!</p></p>
+<p><p>Welcome to my blog, where I share my views on Data Science,
+Analytics and Economics. I hope you enjoy reading my views!</p></p>
 </div>
 
 <div class="d-byline">
-  Sherman Ding <a href="https://www.linkedin.com/in/shermanding93/" class="uri">https://www.linkedin.com/in/shermanding93/</a> (Singapore Management University)<a href="https://www.smu.edu.sg/" class="uri">https://www.smu.edu.sg/</a>
+  Sherman Ding <a href="https://www.linkedin.com/in/shermanding93/"
+class="uri">https://www.linkedin.com/in/shermanding93/</a> (Singapore
+Management University)<a href="https://www.smu.edu.sg/"
+class="uri">https://www.smu.edu.sg/</a>
   
 <br/>09-09-2021
 </div>
 
 <div class="d-article">
 <h2 id="introduction">Introduction</h2>
-<p>I am a research analyst at a capital markets family office covering US/China equities and Fixed Income. Strategies that I run for discretionary portfolio are macro and event-driven. Focus on TMT sector and traditional fundamental valuations. I am currently pursuing a Master’s in Quantitative Finance with the hope to transition towards quantitative research and systematic trading using computational finance and statistical inference.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Introduction.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
