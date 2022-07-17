@@ -1,7 +1,7 @@
 ---
-title: "DSA"
+title: "Using R to visualize data"
 description: |
-  A short description of the post.
+  We use popular R packages to visualize static data through histograms.
 author:
   - name: Sherman Ding
     url: https://www.linkedin.com/in/shermanding93/
@@ -18,14 +18,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # 1.0 Overview
 
-Correlation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables.  The values of a correlation coefficient ranges between -1.0 and 1.0.  A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables.  A correlation coeficient of 0.0 shows no linear relationship between the two variables. 
+Correlation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables.  The values of a correlation coefficient ranges between -1.0 and 1.0.  A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables.  A correlation coefficient of 0.0 shows no linear relationship between the two variables. 
 
-When multivariate data are used, the correlation coeficeints of the pair comparisons are displayed in a table form known as correlation matrix or scatterplot matrix.  
+When multivariate data are used, the correlation coefficients of the pair comparisons are displayed in a table form known as correlation matrix or scatter-plot matrix.  
 
 There are three broad reasons for computing a correlation matrix.
 
-- To reveal the relationship between highdimensional variables pairwisely.
-- To input into other analyses. For example, people commonly use correlation matrixes as inputs for exploratory factor analysis, confirmatory factor analysis, structural equation models, and linear regression when excluding missing values pairwise.
+- To reveal the relationship between high-dimensional variables pair-wisely.
+- To input into other analyses. For example, people commonly use correlation matrices as inputs for exploratory factor analysis, confirmatory factor analysis, structural equation models, and linear regression when excluding missing values pairwise.
 - As a diagnostic when checking other analyses. For example, with linear regression a high amount of correlations suggests that the linear regression’s estimates will be unreliable.
 
 When the data is large, both in terms of the number of observations and the number of variables, [Corrgram](http://www.datavis.ca/papers/corrgram.pdf) tend to be used to visually explore and analyse the structure and the patterns of relations among variables.  It is designed based on two main schemes:
