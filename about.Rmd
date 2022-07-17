@@ -1,7 +1,7 @@
 ---
 title: "About this blog"
 description: |
-  Some additional details about the blog
+  Quantitative finance methods and strategy creation
 ---
 
 ```{r setup, include=FALSE}

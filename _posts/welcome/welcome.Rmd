@@ -1,7 +1,7 @@
 ---
-title: "Welcome to QuantWeave"
+title: "Motivations behind QuantWeave"
 description: |
-  Welcome to QuantWeave, a blog where I share certain applications of quantitative finance and a myriad of learning areas.
+  A deep-dive into quantitative methods and data science to solve real-world problems. I started this blog as a medium to bridge quasi-methods to the world of finance.
 author:
   - name: Sherman Ding
     url: https://www.linkedin.com/in/shermanding93/
@@ -20,9 +20,3 @@ knitr::opts_chunk$set(echo = FALSE)
 # https://rstudio.github.io/distill/blog.html
 
 ```
-
-## About QuantWeave
-
-Founded on the belief of exploring quantitative applications in the world of centralized and decentralized finance.
-
-

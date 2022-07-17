@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,7 +77,7 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
@@ -85,39 +85,40 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
-  <!--radix_placeholder_meta_tags-->
-<title>An exploratory quantitative blog: DSA</title>
 
-<meta property="description" itemprop="description" content="A short description of the post."/>
+  <!--radix_placeholder_meta_tags-->
+<title>An exploratory quantitative blog: Replicating payoff of digital option</title>
+
+<meta property="description" itemprop="description" content="We explore payoff replication of exotic options using a portfolio on vanilla options. We investigate how well the replication is and what factors affect the payoff."/>
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-09-09"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-09-09"/>
+<meta property="article:published" itemprop="datePublished" content="2022-01-03"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-01-03"/>
 <meta name="article:author" content="Sherman Ding"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="An exploratory quantitative blog: DSA"/>
+<meta property="og:title" content="An exploratory quantitative blog: Replicating payoff of digital option"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="A short description of the post."/>
+<meta property="og:description" content="We explore payoff replication of exotic options using a portfolio on vanilla options. We investigate how well the replication is and what factors affect the payoff."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="An exploratory quantitative blog"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="An exploratory quantitative blog: DSA"/>
-<meta property="twitter:description" content="A short description of the post."/>
+<meta property="twitter:title" content="An exploratory quantitative blog: Replicating payoff of digital option"/>
+<meta property="twitter:description" content="We explore payoff replication of exotic options using a portfolio on vanilla options. We investigate how well the replication is and what factors affect the payoff."/>
 
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["DSA"]},{"type":"character","attributes":{},"value":["A short description of the post."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Sherman Ding"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/shermanding93/"]}]}]},{"type":"character","attributes":{},"value":["09-09-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Replicating payoff of digital option"]},{"type":"character","attributes":{},"value":["We explore payoff replication of exotic options using a portfolio on vanilla options. We investigate how well the replication is and what factors affect the payoff."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Sherman Ding"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/shermanding93/"]},{"type":"character","attributes":{},"value":["Singapore Management University"]},{"type":"character","attributes":{},"value":["https://www.smu.edu.sg/"]}]}]},{"type":"character","attributes":{},"value":["01-03-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data/wine_quality.csv","dsa_files/anchor-4.2.2/anchor.min.js","dsa_files/bowser-1.9.3/bowser.min.js","dsa_files/distill-2.2.21/template.v2.js","dsa_files/figure-html5/unnamed-chunk-3-1.png","dsa_files/header-attrs-2.10/header-attrs.js","dsa_files/jquery-1.11.3/jquery.min.js","dsa_files/popper-2.6.0/popper.min.js","dsa_files/tippy-6.2.7/tippy-bundle.umd.min.js","dsa_files/tippy-6.2.7/tippy-light-border.css","dsa_files/tippy-6.2.7/tippy.css","dsa_files/tippy-6.2.7/tippy.umd.min.js","dsa_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["Post2_files/anchor-4.2.2/anchor.min.js","Post2_files/bowser-1.9.3/bowser.min.js","Post2_files/distill-2.2.21/template.v2.js","Post2_files/figure-html5/unnamed-chunk-2-1.png","Post2_files/figure-html5/unnamed-chunk-3-3.png","Post2_files/figure-html5/unnamed-chunk-4-5.png","Post2_files/figure-html5/unnamed-chunk-5-7.png","Post2_files/header-attrs-2.10/header-attrs.js","Post2_files/header-attrs-2.14/header-attrs.js","Post2_files/jquery-1.11.3/jquery.min.js","Post2_files/jquery-3.6.0/jquery-3.6.0.js","Post2_files/jquery-3.6.0/jquery-3.6.0.min.js","Post2_files/jquery-3.6.0/jquery-3.6.0.min.map","Post2_files/popper-2.6.0/popper.min.js","Post2_files/tippy-6.2.7/tippy-bundle.umd.min.js","Post2_files/tippy-6.2.7/tippy-light-border.css","Post2_files/tippy-6.2.7/tippy.css","Post2_files/tippy-6.2.7/tippy.umd.min.js","Post2_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2044,8 +2045,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2065,7 +2066,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"DSA","description":"A short description of the post.","authors":[{"author":"Sherman Ding","authorURL":"https://www.linkedin.com/in/shermanding93/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-09-09T00:00:00.000+08:00","citationText":"Ding, 2021"}
+{"title":"Replicating payoff of digital option","description":"We explore payoff replication of exotic options using a portfolio on vanilla options. We investigate how well the replication is and what factors affect the payoff.","authors":[{"author":"Sherman Ding","authorURL":"https://www.linkedin.com/in/shermanding93/","affiliation":"Singapore Management University","affiliationURL":"https://www.smu.edu.sg/","orcidID":""}],"publishedDate":"2022-01-03T00:00:00.000+08:00","citationText":"Ding, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2088,107 +2089,234 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>DSA</h1>
+<h1>Replicating payoff of digital option</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>A short description of the post.</p></p>
+<p><p>We explore payoff replication of exotic options using a portfolio
+on vanilla options. We investigate how well the replication is and what
+factors affect the payoff.</p></p>
 </div>
 
 <div class="d-byline">
-  Sherman Ding <a href="https://www.linkedin.com/in/shermanding93/" class="uri">https://www.linkedin.com/in/shermanding93/</a> 
+  Sherman Ding <a href="https://www.linkedin.com/in/shermanding93/"
+class="uri">https://www.linkedin.com/in/shermanding93/</a> (Singapore
+Management University)<a href="https://www.smu.edu.sg/"
+class="uri">https://www.smu.edu.sg/</a>
   
-<br/>09-09-2021
+<br/>01-03-2022
 </div>
 
 <div class="d-article">
-<h1 id="overview">1.0 Overview</h1>
-<p>Correlation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables. The values of a correlation coefficient ranges between -1.0 and 1.0. A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables. A correlation coeficient of 0.0 shows no linear relationship between the two variables.</p>
-<p>When multivariate data are used, the correlation coeficeints of the pair comparisons are displayed in a table form known as correlation matrix or scatterplot matrix.</p>
-<p>There are three broad reasons for computing a correlation matrix.</p>
-<ul>
-<li>To reveal the relationship between highdimensional variables pairwisely.</li>
-<li>To input into other analyses. For example, people commonly use correlation matrixes as inputs for exploratory factor analysis, confirmatory factor analysis, structural equation models, and linear regression when excluding missing values pairwise.</li>
-<li>As a diagnostic when checking other analyses. For example, with linear regression a high amount of correlations suggests that the linear regression’s estimates will be unreliable.</li>
-</ul>
-<p>When the data is large, both in terms of the number of observations and the number of variables, <a href="http://www.datavis.ca/papers/corrgram.pdf">Corrgram</a> tend to be used to visually explore and analyse the structure and the patterns of relations among variables. It is designed based on two main schemes:</p>
-<ul>
-<li>Rendering the value of a correlation to depict its sign and magnitude, and</li>
-<li>Reordering the variables in a correlation matrix so that “similar” variables are positioned adjacently, facilitating perception.</li>
-</ul>
-<p>In this hands-on exercise, you will learn how to plot data visualisation for visualising correlation matrix with R. It consists of three main sections. First, you will learn how to create correlation matrix using <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.0/topics/pairs"><em>pairs()</em></a> of R Graphics. Next, you will learn how to plot corrgram using <strong>corrplot</strong> package of R Lastly, you will learn how to create an interactive correlation matrix using plotly R. .</p>
-<h1 id="installing-and-launching-r-packages">2.0 Installing and Launching R Packages</h1>
-<p>Before you get started, you are required:</p>
-<ul>
-<li>to start a new R project, and</li>
-<li>to create a new R Markdown document.</li>
-</ul>
-<p>Next, you will use the code chunk below to install and launch <strong>corrplot</strong>, <strong>ggpubr</strong>, <strong>plotly</strong> and <strong>tidyverse</strong> in RStudio.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>packages</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'ggpubr'</span>, <span class='st'>'tidyverse'</span><span class='op'>)</span>
 
-<span class='kw'>for</span><span class='op'>(</span><span class='va'>p</span> <span class='kw'>in</span> <span class='va'>packages</span><span class='op'>)</span><span class='op'>{</span><span class='va'>library</span>
-  <span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>p</span>, character.only <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-  <span class='op'>}</span>
-  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>p</span>, character.only <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>
-<span class='op'>}</span>
-</code></pre>
 </div>
-</div>
-<h1 id="importing-and-preparing-the-data-set">3.0 Importing and Preparing The Data Set</h1>
-<p>In this hands-on exercise, the <a href="https://archive.ics.uci.edu/ml/datasets/wine+quality">Wine Quality Data Set</a> of UCI Machine Learning Repository will be used. The data set consists of 13 variables and 6497 observations. For the purpose of this exercise, we have combined the red wine and white wine data into one data file. It is called wine_quality and is in csv file format.</p>
-<h2 id="importing-data">3.1 Importing Data</h2>
-<p>First, let us import the data into R by using <em>read_csv()</em> of <strong>readr</strong> package.</p>
+<h1 id="define-digital-option-payoff">1.0 Define digital option
+payoff</h1>
+<p>We consider a digital option with a payoff at maturity T = 1, where L
+= 80, U = 120. L and U and lower barriers and upper barriers
+respectively. The digital option pays $1 if Stock price remains in
+between the barriers.</p>
+<p><span class="math display">\[
+1_{L &lt; S_T &lt; U}
+\]</span></p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wine</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/wine_quality.csv"</span><span class='op'>)</span>
-</code></pre>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binary_call_payoff(S_T):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> S_T <span class="op">&gt;</span> <span class="dv">80</span> <span class="kw">and</span> S_T <span class="op">&lt;</span> <span class="dv">120</span>:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">1.0</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.0</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> []</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>payoff <span class="op">=</span> []</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stock <span class="kw">in</span> np.arange(<span class="dv">70</span>,<span class="dv">130</span>,<span class="fl">0.1</span>):</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    price.append(stock)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    payoff.append(binary_call_payoff(stock))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>plt.plot(price,payoff)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Digital Option Payoff&#39;</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Post2_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
-</div>
-<p>Notice that beside quality and type, the rest of the variables are numerical and continuous data type.</p>
-<h1 id="univariate-eda-with-histogram">4.0 Univariate EDA with Histogram</h1>
-<p>In the figure below, multiple histograms are plottted to reveal the distribution of the selected variables in the wine quality data sets.</p>
-<div class="layout-chunk" data-layout="l-body-outset">
-<p><img src="dsa_files/figure-html5/unnamed-chunk-3-1.png" width="1152" /></p>
-</div>
-<p>The code chunks used to create the data visualisation consists of two main parts. First, we will create the individual histograms using the code chunk below.</p>
+<h1 id="replicate-payoff-of-digital-option">2.0 Replicate payoff of
+digital option</h1>
+<p>We replicate the digital option payoff above by combining european
+vanilla option spreads:</p>
+<ul>
+<li>Long vertical call spread (long call @ <span
+class="math inline">\(80 - \epsilon\)</span>, short call @ <span
+class="math inline">\(80 + \epsilon\)</span>)</li>
+<li>Short vertical call spread (short call @ <span
+class="math inline">\(80 - \epsilon\)</span>, long call @ <span
+class="math inline">\(80 + \epsilon\)</span>)</li>
+</ul>
+<p><span class="math display">\[
+C_0(Digital) = \lim_{\epsilon \rightarrow 0} \frac{Call(80 - \epsilon) -
+Call(80 + \epsilon)}{2\epsilon} = -\frac{dCall}{dK}
+\]</span></p>
+<p>The digital call can be thought of as a limit of a call spread. As
+the distance between the call spread strikes and the digital strikes
+<span class="math inline">\(\epsilon\)</span> get smaller, <span
+class="math inline">\(\frac{1}{\epsilon}\)</span> call spreads with
+2<span class="math inline">\(\epsilon\)</span> width are needed to
+replicate the digital option. This means in the limit, as <span
+class="math inline">\(\epsilon\)</span> tends to 0, the call spread can
+replicate the digital option exactly. Below plot shows the replication
+of a digital option payoff using 2 call spreads; as <span
+class="math inline">\(\epsilon\)</span> becomes smaller, the spreads
+replicate the digital option payoff more and more perfectly.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fa</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>`fixed acidity`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>va</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>`volatile acidity`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>ca</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>`citric acid`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>rs</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>`residual sugar`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>ch</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>`chlorides`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>fSO2</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>`free sulfur dioxide`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>tSO2</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>`total sulfur dioxide`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>density</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>pH</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>pH</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>sulphates</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>sulphates</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-<span class='va'>alcohol</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>wine</span>, <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>alcohol</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_histogram</span><span class='op'>(</span>bins<span class='op'>=</span><span class='fl'>20</span>, color<span class='op'>=</span><span class='st'>"black"</span>, fill<span class='op'>=</span><span class='st'>"light blue"</span><span class='op'>)</span>
-</code></pre>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>payoff_list1 <span class="op">=</span> []</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>payoff_list2 <span class="op">=</span> []</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>payoff_list3 <span class="op">=</span> []</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>s_price1 <span class="op">=</span> []</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>s_price2 <span class="op">=</span> []</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>s_price3 <span class="op">=</span> []</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>epsilon_var<span class="op">=</span>(<span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="dv">1</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(epsilon_var)):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    S<span class="op">=</span><span class="dv">70</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    s_tick<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    payout <span class="op">=</span> <span class="fl">0.5</span> <span class="co"># per call spread leg (total payout=1)</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    epsilon<span class="op">=</span>epsilon_var[j]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    lots <span class="op">=</span> payout<span class="op">*</span><span class="dv">2</span><span class="op">/</span>epsilon </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    K1<span class="op">=</span><span class="dv">80</span><span class="op">-</span>epsilon</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    K2<span class="op">=</span><span class="dv">80</span><span class="op">+</span>epsilon</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    K3<span class="op">=</span><span class="dv">120</span><span class="op">-</span>epsilon</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    K4<span class="op">=</span><span class="dv">120</span><span class="op">+</span>epsilon</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="fl">70.0</span>,<span class="dv">130</span>,s_tick):</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        payoff<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        S<span class="op">+=</span>s_tick</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> S<span class="op">&gt;</span>K1:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            payoff<span class="op">+=</span>(payout<span class="op">*</span>lots)<span class="op">*</span>(S<span class="op">-</span>K1)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> S<span class="op">&gt;</span>K2:</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            payoff<span class="op">-=</span>(payout<span class="op">*</span>lots)<span class="op">*</span>(S<span class="op">-</span>K2)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> S<span class="op">&gt;</span>K3:</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            payoff<span class="op">-=</span>(payout<span class="op">*</span>lots)<span class="op">*</span>(S<span class="op">-</span>K3)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> S<span class="op">&gt;</span>K4:</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            payoff<span class="op">+=</span>(payout<span class="op">*</span>lots)<span class="op">*</span>(S<span class="op">-</span>K4)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> epsilon <span class="op">==</span> <span class="fl">0.1</span>:      </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            payoff_list1.append(payoff)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            s_price1.append(S)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> epsilon <span class="op">==</span> <span class="fl">0.5</span>:</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            payoff_list2.append(payoff)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            s_price2.append(S)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> epsilon <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>            payoff_list3.append(payoff)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>            s_price3.append(S)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>plt.plot(s_price1,payoff_list1)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>plt.plot(s_price2,payoff_list2)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>plt.plot(s_price3,payoff_list3)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Spread Replication Payoff&#39;</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">&#39;epsilon = 0.1&#39;</span>,<span class="st">&#39;epsilon = 0.5&#39;</span>,<span class="st">&#39;epsilon = 1&#39;</span>])</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Post2_files/figure-html5/unnamed-chunk-3-3.png" width="624" /></p>
 </div>
-</div>
-<p>Next, the <em>ggarrange</em> function of <strong>ggpur</strong> package is used to group these histograms together.</p>
+<p>It is important to note that while <span
+class="math inline">\(\epsilon\)</span> is not 0, it does not perfectly
+replicate a digital option payoff:</p>
+<ul>
+<li>Above the barrier level, the call spread has the same payoff as the
+digital option</li>
+<li>Below the barrier level, the call spread the same payoff as the
+digital option</li>
+<li>In-between the upper and lower strikes, the call spread has a
+non-zero payoff</li>
+</ul>
+<p>The call-spread over-replicates the digital option because its payoff
+is always greater, or equal to the digital option payoff.</p>
+<h1 id="black-scholes-delta-and-vega-profiles-of-digital-option">3.0
+Black-Scholes Delta and Vega profiles of digital option</h1>
+<p>It is shown that the smaller the <span
+class="math inline">\(\epsilon\)</span>, the closer the call spread is
+in replicating the digital option payoff. By using <span
+class="math inline">\(\epsilon\)</span> = 0.1, we can set the call
+spread strikes required for the digital option.</p>
+<ul>
+<li>K1 = 80 - 0.1 = 79.9</li>
+<li>K2 = 80 + 0.1 = 80.1</li>
+<li>K3 = 80 - 0.1 = 119.9</li>
+<li>K4 = 80 + 0.1 = 120.1</li>
+</ul>
+<p>Since <span class="math inline">\(\epsilon\)</span> is set at 0.1, we
+would need 1/<span class="math inline">\(\epsilon\)</span> amount of
+contracts per call spread. Therefore we have 1/0.1 = <strong>10
+contracts per call spread</strong></p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ggarrange</span><span class='op'>(</span><span class='va'>fa</span>, <span class='va'>va</span>, <span class='va'>ca</span>, <span class='va'>rs</span>, <span class='va'>ch</span>, <span class='va'>fSO2</span>, <span class='va'>tSO2</span>, <span class='va'>density</span>, <span class='va'>pH</span>, <span class='va'>sulphates</span>, <span class='va'>alcohol</span>, 
-          ncol <span class='op'>=</span> <span class='fl'>4</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</code></pre>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> style</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>s_tick <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>K1 <span class="op">=</span> <span class="fl">79.9</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>K2 <span class="op">=</span> <span class="fl">80.1</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>K3 <span class="op">=</span> <span class="fl">119.9</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>K4 <span class="op">=</span> <span class="fl">120.1</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>delta_profile <span class="op">=</span> []</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>stock_price <span class="op">=</span> []</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> BS_Call_Delta(F,K,q,sigma,T):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    d1 <span class="op">=</span> (np.log(F<span class="op">/</span>K)<span class="op">+</span>(<span class="fl">0.5</span><span class="op">*</span>sigma<span class="op">**</span><span class="dv">2</span><span class="op">*</span>T)) <span class="op">/</span> sigma<span class="op">*</span>np.sqrt(T)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.exp(<span class="op">-</span>q<span class="op">*</span>T) <span class="op">*</span> norm.cdf(d1)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> S <span class="kw">in</span> np.arange(<span class="fl">0.1</span>,<span class="dv">240</span>,s_tick):</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    Forward <span class="op">=</span> S <span class="op">*</span> np.exp(<span class="op">-</span>r<span class="op">*</span>T)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    call_spread1 <span class="op">=</span> <span class="dv">10</span><span class="op">*</span>(BS_Call_Delta(Forward,K1,q,sigma,T) <span class="op">-</span> BS_Call_Delta(Forward,K2,q,sigma,T))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    call_spread2 <span class="op">=</span> <span class="dv">10</span><span class="op">*</span>(<span class="op">-</span>BS_Call_Delta(Forward,K3,q,sigma,T) <span class="op">+</span> BS_Call_Delta(Forward,K4,q,sigma,T))</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    delta_profile.append(call_spread1 <span class="op">+</span> call_spread2)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    stock_price.append(S)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> plt.style.context(<span class="st">&#39;seaborn&#39;</span>):    </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    plt.plot(stock_price,delta_profile)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">&#39;Digital Option Delta Profile (BS)&#39;</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Post2_files/figure-html5/unnamed-chunk-4-5.png" width="624" /></p>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>s_tick <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>K1 <span class="op">=</span> <span class="fl">79.9</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>K2 <span class="op">=</span> <span class="fl">80.1</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>K3 <span class="op">=</span> <span class="fl">119.9</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>K4 <span class="op">=</span> <span class="fl">120.1</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>vega_profile <span class="op">=</span> []</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>stock_price_ <span class="op">=</span> []</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> BS_Call_Vega(S0,F,K,q,sigma,T):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    d1 <span class="op">=</span> (np.log(F<span class="op">/</span>K)<span class="op">+</span>(<span class="fl">0.5</span><span class="op">*</span>sigma<span class="op">**</span><span class="dv">2</span><span class="op">*</span>T)) <span class="op">/</span> sigma<span class="op">*</span>np.sqrt(T)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.exp(<span class="op">-</span>q<span class="op">*</span>T) <span class="op">*</span> S0 <span class="op">*</span> np.sqrt(T) <span class="op">*</span> norm.pdf(d1)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> S <span class="kw">in</span> np.arange(<span class="fl">0.1</span>,<span class="dv">240</span>,s_tick):</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    Forward <span class="op">=</span> S <span class="op">*</span> np.exp(<span class="op">-</span>r<span class="op">*</span>T)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    call_spread1 <span class="op">=</span> <span class="dv">10</span><span class="op">*</span>(BS_Call_Vega(S,Forward,K1,q,sigma,T) <span class="op">-</span> BS_Call_Vega(S,Forward,K2,q,sigma,T))</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    call_spread2 <span class="op">=</span> <span class="dv">10</span><span class="op">*</span>(<span class="op">-</span>BS_Call_Vega(S,Forward,K3,q,sigma,T) <span class="op">+</span> BS_Call_Vega(S,Forward,K4,q,sigma,T))</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    vega_profile.append(call_spread1 <span class="op">+</span> call_spread2)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    stock_price_.append(S)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> plt.style.context(<span class="st">&#39;seaborn&#39;</span>):    </span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    plt.plot(stock_price_,vega_profile)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">&#39;Digital Option Vega Profile (BS)&#39;</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Post2_files/figure-html5/unnamed-chunk-5-7.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2196,6 +2324,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

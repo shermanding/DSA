@@ -3,17 +3,17 @@
     {
       "path": "about.html",
       "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "description": "Quantitative finance methods and strategy creation",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-09T16:49:42+08:00"
+      "last_modified": "2022-07-17T22:04:06+08:00"
     },
     {
       "path": "index.html",
-      "title": "Data Science and Analytics",
+      "title": "QuantWeave",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-09T17:30:02+08:00"
+      "last_modified": "2022-07-17T22:04:06+08:00"
     }
   ],
   "collections": ["posts/posts.json"]

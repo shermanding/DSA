@@ -1,0 +1,207 @@
+---
+title: "Replicating payoff of digital option"
+description: |
+  We explore payoff replication of exotic options using a portfolio on vanilla options. We investigate how well the replication is and what factors affect the payoff.
+author:
+  - name: Sherman Ding
+    url: https://www.linkedin.com/in/shermanding93/
+    affiliation: Singapore Management University
+    affiliation_url: https://www.smu.edu.sg/
+date: 01-03-2022
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating blogs with Distill at:
+# https://rstudio.github.io/distill/blog.html
+
+```
+
+\newcommand{\ci}{\perp\!\!\!\perp}
+
+```{r}
+library(reticulate)
+```
+
+# 1.0 Define digital option payoff
+
+We consider a digital option with a payoff at maturity T = 1, where L = 80, U = 120. L and U and lower barriers and upper barriers respectively. The digital option pays $1 if Stock price remains in between the barriers.
+
+\[
+1_{L < S_T < U}
+\]
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+import matplotlib.pyplot as plt
+import numpy as np
+
+def binary_call_payoff(S_T):
+  if S_T > 80 and S_T < 120:
+    return 1.0
+  else:
+    return 0.0
+  
+price = []
+payoff = []
+
+for stock in np.arange(70,130,0.1):
+    price.append(stock)
+    payoff.append(binary_call_payoff(stock))
+    
+plt.plot(price,payoff)
+plt.title('Digital Option Payoff')
+plt.show()
+```
+
+# 2.0 Replicate payoff of digital option
+
+We replicate the digital option payoff above by combining european vanilla option spreads:
+
+* Long vertical call spread (long call @ $80 - \epsilon$, short call @ $80 + \epsilon$)
+* Short vertical call spread (short call @ $80 - \epsilon$, long call @ $80 + \epsilon$)
+
+\[
+C_0(Digital) = \lim_{\epsilon \rightarrow 0} \frac{Call(80 - \epsilon) - Call(80 + \epsilon)}{2\epsilon} = -\frac{dCall}{dK}
+\]
+
+The digital call can be thought of as a limit of a call spread. As the distance between the call spread strikes and the digital strikes $\epsilon$ get smaller, $\frac{1}{\epsilon}$ call spreads with 2$\epsilon$ width are needed to replicate the digital option. This means in the limit, as $\epsilon$ tends to 0, the call spread can replicate the digital option exactly.
+Below plot shows the replication of a digital option payoff using 2 call spreads; as $\epsilon$ becomes smaller, the spreads replicate the digital option payoff more and more perfectly.
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+payoff_list1 = []
+payoff_list2 = []
+payoff_list3 = []
+s_price1 = []
+s_price2 = []
+s_price3 = []
+epsilon_var=(0.1,0.5,1)
+
+for j in range(len(epsilon_var)):
+    S=70
+    s_tick=0.1
+    payout = 0.5 # per call spread leg (total payout=1)
+    epsilon=epsilon_var[j]
+    lots = payout*2/epsilon 
+    K1=80-epsilon
+    K2=80+epsilon
+    K3=120-epsilon
+    K4=120+epsilon
+    
+    for i in np.arange(70.0,130,s_tick):
+        payoff=0
+        S+=s_tick
+        if S>K1:
+            payoff+=(payout*lots)*(S-K1)
+        if S>K2:
+            payoff-=(payout*lots)*(S-K2)
+        if S>K3:
+            payoff-=(payout*lots)*(S-K3)
+        if S>K4:
+            payoff+=(payout*lots)*(S-K4)
+        if epsilon == 0.1:      
+            payoff_list1.append(payoff)
+            s_price1.append(S)
+        elif epsilon == 0.5:
+            payoff_list2.append(payoff)
+            s_price2.append(S)
+        elif epsilon == 1:
+            payoff_list3.append(payoff)
+            s_price3.append(S)
+    
+plt.plot(s_price1,payoff_list1)
+plt.plot(s_price2,payoff_list2)
+plt.plot(s_price3,payoff_list3)
+plt.title('Spread Replication Payoff')
+plt.legend(['epsilon = 0.1','epsilon = 0.5','epsilon = 1'])
+plt.show()
+```
+
+
+It is important to note that while $\epsilon$ is not 0, it does not perfectly replicate a digital option payoff:
+
+* Above the barrier level, the call spread has the same payoff as the digital option
+* Below the barrier level, the call spread the same payoff as the digital option
+* In-between the upper and lower strikes, the call spread has a non-zero payoff
+
+The call-spread over-replicates the digital option because its payoff is always greater, or equal to the digital option payoff.
+
+# 3.0 Black-Scholes Delta and Vega profiles of digital option
+
+It is shown that the smaller the $\epsilon$, the closer the call spread is in replicating the digital option payoff.
+By using $\epsilon$ = 0.1, we can set the call spread strikes required for the digital option.
+
+* K1 = 80 - 0.1 = 79.9
+* K2 = 80 + 0.1 = 80.1
+* K3 = 80 - 0.1 = 119.9
+* K4 = 80 + 0.1 = 120.1
+
+Since $\epsilon$ is set at 0.1, we would need 1/$\epsilon$ amount of contracts per call spread.
+Therefore we have 1/0.1 = **10 contracts per call spread**
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+from scipy.stats import norm
+import numpy as np
+from matplotlib import style
+
+sigma = 0.2
+r = 0
+q = 0
+T = 1
+s_tick = 0.1
+K1 = 79.9
+K2 = 80.1
+K3 = 119.9
+K4 = 120.1
+delta_profile = []
+stock_price = []
+
+def BS_Call_Delta(F,K,q,sigma,T):
+    d1 = (np.log(F/K)+(0.5*sigma**2*T)) / sigma*np.sqrt(T)
+    return np.exp(-q*T) * norm.cdf(d1)
+
+for S in np.arange(0.1,240,s_tick):
+    Forward = S * np.exp(-r*T)
+    call_spread1 = 10*(BS_Call_Delta(Forward,K1,q,sigma,T) - BS_Call_Delta(Forward,K2,q,sigma,T))
+    call_spread2 = 10*(-BS_Call_Delta(Forward,K3,q,sigma,T) + BS_Call_Delta(Forward,K4,q,sigma,T))
+    delta_profile.append(call_spread1 + call_spread2)
+    stock_price.append(S)
+
+with plt.style.context('seaborn'):    
+    plt.plot(stock_price,delta_profile)
+    plt.title('Digital Option Delta Profile (BS)')
+plt.show()
+```
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+sigma = 0.2
+r = 0
+q = 0
+T = 1
+s_tick = 0.1
+K1 = 79.9
+K2 = 80.1
+K3 = 119.9
+K4 = 120.1
+vega_profile = []
+stock_price_ = []
+
+def BS_Call_Vega(S0,F,K,q,sigma,T):
+    d1 = (np.log(F/K)+(0.5*sigma**2*T)) / sigma*np.sqrt(T)
+    return np.exp(-q*T) * S0 * np.sqrt(T) * norm.pdf(d1)
+
+for S in np.arange(0.1,240,s_tick):
+    Forward = S * np.exp(-r*T)
+    call_spread1 = 10*(BS_Call_Vega(S,Forward,K1,q,sigma,T) - BS_Call_Vega(S,Forward,K2,q,sigma,T))
+    call_spread2 = 10*(-BS_Call_Vega(S,Forward,K3,q,sigma,T) + BS_Call_Vega(S,Forward,K4,q,sigma,T))
+    vega_profile.append(call_spread1 + call_spread2)
+    stock_price_.append(S)
+
+with plt.style.context('seaborn'):    
+    plt.plot(stock_price_,vega_profile)
+    plt.title('Digital Option Vega Profile (BS)')
+plt.show()
+```
