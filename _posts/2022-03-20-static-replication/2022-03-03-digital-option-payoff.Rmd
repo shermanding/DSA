@@ -1,0 +1,150 @@
+---
+title: "Static replication using Breeden-Litzenberger"
+description: |
+  We use Breeden-Litzenberger to compute option prices numerically and replicate payoffs statically.
+author:
+  - name: Sherman Ding
+    url: https://www.linkedin.com/in/shermanding93/
+    affiliation: Singapore Management University
+    affiliation_url: https://www.smu.edu.sg/
+date: 03-20-2022
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating blogs with Distill at:
+# https://rstudio.github.io/distill/blog.html
+
+```
+
+\newcommand{\ci}{\perp\!\!\!\perp}
+
+```{r}
+library(reticulate)
+```
+
+# 1.0 Breeden-Litzenberger formula
+
+BL formula states that, any payoff that depends on $S_T$ can be priced with the below formula:
+
+\[
+V_0 = e^{-rT} V_T \left(\left(F_0(T)\right) \right) + \int^{F_0(T)}_{0} Put(K,T)\frac{\delta^2V_T(K)}{\delta K^2} dK + \int^{\infty}_{F_0(T)} Call(K,T)\frac{\delta^2V_T(K)}{\delta K^2} dK
+\]
+
+In the examples below, we assume:
+
+1. r = q = 0
+
+2. $S_0$ = 1
+
+3. Implied Volatility $\sum{(K)} = 0.510 - 0.591K + 0.376K^2 - 0.105K^3$
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+import numpy as np
+from scipy.stats import norm
+from scipy.integrate import quad
+
+def ivol_calc(K):
+    if K >3:
+        return 0.510 - 0.591*3 + 0.376*3**2 - 0.105*3**3 + 0.011*3**4
+    else:
+        return 0.510 - 0.591*K + 0.376*K**2 - 0.105*K**3 + 0.011*K**4
+    
+def Black76Call(F, K, T, DF):
+    ivol = ivol_calc(K)
+    d1 = (np.log(F/K)+(0.5*ivol**2)*T) / (ivol*np.sqrt(T))
+    d2 = d1 - ivol*np.sqrt(T)
+    return DF*(F*norm.cdf(d1) - K*norm.cdf(d2))
+          
+def Black76Put(F, K, T, DF):
+    ivol = ivol_calc(K)
+    d1 = (np.log(F/K)+(0.5*ivol**2)*T) / (ivol*np.sqrt(T))
+    d2 = d1 - ivol*np.sqrt(T)
+    return DF*(K*norm.cdf(-d2) - F*norm.cdf(-d1)) 
+```
+
+## 2.0 Static replication for option with payoff: $V_T(S_T) = \sqrt(S_T)$
+
+
+$V_T(S_T) = \sqrt{S_T}$
+
+The upper limit of a call integral can be approximated by $F_0(T)e^{\kappa\sigma\sqrt{T}}$
+where $\kappa$ represents the number of standard deviation away from the mean, and $\sigma$ is ATM implied vol. The higher $\kappa$ is, the more accurate the approximation is.
+
+Using Breeden-Litzenberger formula, we can use static replication for the payoff $V_T(S_T) = \sqrt{S_T}$ below:
+
+\[
+V_0 = \sqrt{S_0}e^{\frac{-rT}{2}} + \int^{F_0(T)}_{0} -\frac{1}{4K^{3/2}} Put(K,T) dK + \int^{\infty}_{F_0(T)} -\frac{1}{4K^{3/2}} Call(K,T) dK
+\]
+
+$h(S_T) = S_T^n$
+
+$h'(S_T) = nS_T^{n-1}$
+
+$h''(S_T) = n(n-1)S_T^{n-2}$
+
+$h(F) = S_0^ne^{nrT}$
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+def h_1(ST):
+    return np.sqrt(ST) * np.exp(-r*T/2)
+          
+def Numerical_integration1(S0, r, q, T, SD):
+    DF = np.exp(-r*T)
+    DivF = np.exp(-q*T)
+    F = S0 * DivF/DF
+    upper_limit = F * np.exp(SD * ivol_calc(F) * np.sqrt(T))
+    putintegrand = lambda x: -x**(-1.5) * Black76Put(F, x, T, DF) / 4
+    I_put, error = quad(putintegrand, 0, F)
+    callintegrand = lambda y: -y**(-1.5) * Black76Call(F, y, T, DF) / 4
+    I_call, error = quad(callintegrand, F, upper_limit)
+    return h_1(F) + I_put + I_call
+
+S0 = 1
+r = 0
+q = 0
+T = 4
+
+SDs = np.linspace(1, 6, 6)
+print([Numerical_integration1(S0, r, q, T, SD) for SD in SDs])
+print('Option price: %.8f' % [Numerical_integration1(S0, r, q, T, SD) for SD in SDs][-1])
+```
+We see that as kappa increases, the approximation becomes more accurate.
+
+## 3.0 Static replication for option with payoff: $V_T(S_T) = S_T^3$
+
+Using Breeden-Litzenberger formula, we can use static replication for the payoff $V_T(S_T) = S_T^3$ below:
+
+\[
+V_0 = S_0^3e^{2rT} + \int^{F_0(T)}_{0} 6K Put(K,T) dK + \int^{\infty}_{F_0(T)} 6K Call(K,T) dK
+\]
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+def h_2(ST):
+    return ST**3 * np.exp(2*r*T)
+          
+def Numerical_integration2(S0, r, q, T, SD):
+    DF = np.exp(-r*T)
+    DivF = np.exp(-q*T)
+    F = S0 * DivF/DF
+    upper_limit = F * np.exp(ivol_calc(F) * SD * np.sqrt(T))
+    putintegrand = lambda x: 6 * x * Black76Put(F, x, T, DF)
+    I_put, error = quad(putintegrand, 0, F)
+    callintegrand = lambda y: 6 * y * Black76Call(F, y, T, DF)
+    I_call, error = quad(callintegrand, F, upper_limit)
+    return h_2(F) + I_put + I_call
+
+S0 = 1
+r = 0
+q = 0
+T = 4
+
+SDs = np.linspace(1, 6, 6)
+print([Numerical_integration2(S0, r, q, T, SD) for SD in SDs])
+print('Option price: %.8f' % [Numerical_integration2(S0, r, q, T, SD) for SD in SDs][-1])
+```
+Again, we see that as kappa increases, the approximation becomes more accurate.
