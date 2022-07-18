@@ -1,9 +1,21 @@
 ---
-title: "About this blog"
+title: "About"
 description: |
-  Quantitative finance methods and strategy creation
+  Quantative methods: A stage for solving real problems
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## Author
+
+![](images/sherman.jpg)
+
+  I am passionate about the applications of physics, data science and quantitative approaches to finance, and am an advocate for technology as the core of financial management. From portfolio management to derivative pricing, I am a firm believer that the quintessential mathematics and programming will be able solve multiple complex problems. Using programming tools at disposal to conduct unbiased analysis, information procurement, predict markets and an armada of algorithms should help assist in executing trades at optimal times without the continuous need for human intervention.
+
+  I enjoy working on cutting edge projects that may enable new technologies to participate in the proliferation of quantitative trading. The systematic revolution has only just begun, and I hope to be able to contribute to the world of investing through mathematics and programming, and to create a direct impact on the real world.
+
+
+## Background
+  I am currently pursuing a Masters degree in Quantitative Finance from Singapore Management University (SMU). I currently work within the algorithmic investment team in a Robo-Advisory investment firm with a focus on global equities/fixed income portfolio creation, back-testing strategies, and automation. I have had previous experiences in the asset management area, specifically in an asia macro hedge fund, as well as a single family office, working on strategy optimization and research (with quantitative focus).
