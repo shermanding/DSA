@@ -1,0 +1,210 @@
+---
+title: "Modelling probability of an event using poisson process"
+description: |
+  We look at how to model the probabability of an event by using jumps in a poisson process.
+author:
+  - name: Sherman Ding
+    url: https://www.linkedin.com/in/shermanding93/
+date: 2022-07-18
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+\newcommand{\ci}{\perp\!\!\!\perp}
+
+```{r}
+library(reticulate)
+```
+
+# 1.0 The Poisson Process
+
+Assuming the event to be exactly one asset jump arrival within the interval $\left[0,T\right]$, how can we determine the probability of this jump:
+
+We consider a Poisson process and we denote the time of the n-th jump by $T_n$. The sequence {$T_1,T_2,...T_n$} is the sequence of arrival(or jump) times. The number of events in a time interval $\Delta t$ is poisson distributed with mean $\lambda \Delta t$ for all t $\ge$ 0, with arrival intensity $\lambda$:
+
+\[
+Prob\left(N_{t+\Delta t} - N_t = n\right) = e^{-\lambda \Delta \frac{T}{2}} \frac{\left(\lambda \Delta \frac{T}{2}\right)^n}{n!}, n = 0,1,...
+\]
+
+**Event A**
+Let Event A be the probability of 1 asset jump in a given time interval $\left[0,T\right]$, n = 1.
+
+\[
+Prob\left(N_{t+\Delta t} - N_t = 1\right) = e^{-\lambda T} \frac{\left(\lambda T\right)^1}{1!}
+\\
+Prob\left(A\right) = \lambda Te^{-\lambda T}
+\]
+
+The probability of Event A is $\lambda Te^{-\lambda T}$.
+
+# 2.0 Properties of the poisson process, and mathematical proof
+
+How can we prove that the probability of the event of exactly one asset jump within the interval $\left[0,T\right]$ is the same as:
+
+1. 1 asset jump in the interval $\left[0,\frac{T}{2}\right)$, and no asset jump in the interval $\left[\frac{T}{2},T\right]$.
+
+2. No asset jumps in the interval $\left[0,\frac{T}{2}\right)$, and 1 asset jump in the interval $\left[\frac{T}{2},T\right]$.
+
+We consider a Poisson process and we denote the time of the n-th jump by $T_n$. The sequence {$T_1,T_2,...T_n$} is the sequence of arrival(or jump) times. The number of events in a time interval $\Delta t$ is poisson distributed with mean $\lambda \Delta t$ for all t $\ge$ 0:
+
+\[
+Prob\left(N_{t+\Delta t} - N_t = n\right) = e^{-\lambda \Delta \frac{T}{2}} \frac{\left(\lambda \Delta \frac{T}{2}\right)^n}{n!}, n = 0,1,...
+\]
+
+Expectation (Mean) is given as: E$\left[N_{t+\Delta t} - N_t\right] = \lambda \Delta t$
+
+We know that the Poisson process is:
+
+* Independent and Identically distributed
+* A discrete probability distribution of a sum of independent Bernoilli trials
+
+This means that at any point in time, the Poisson process probabilistically restarts itself.
+
+**Event X**
+
+Let Event X be the probability of exactly 1 jump from interval $\left[0,\frac{T}{2}\right)$ and 0 jump from interval $\left[\frac{T}{2},T\right]$, where $X_1$ = 1 and $X_2$ = 0:
+
+First, we find the probability of 1 jump occuring in the interval $\left[0,\frac{T}{2}\right)$:
+
+\[
+Prob\left(N_t = 1\right) = Prob\left(X_1 = 1\right)= e^{-\lambda \frac{T}{2}}\frac{\left(\lambda \frac{T}{2}\right)^n}{n!} = e^{-\lambda \frac{T}{2}} \frac{\lambda T}{2}
+\]
+
+For interval $\left[\frac{T}{2},T\right]$, the interval length is the same as the first interval $\left[0,\frac{T}{2}\right]$. We can find the probability of 0 jump occuring in this interval:
+
+\[
+Prob\left(N_t = 0\right) = Prob\left(X_2 = 0\right) = e^{-\lambda \frac{T}{2}}
+\]
+
+We can find the probability of **Event X** occuring below:
+
+Where **Event X** is Prob($X_2 = 0$) conditional on Prob($X_1 = 1$) for interval  $\left[0,\frac{T}{2}\right)$
+
+\[
+Prob\left(X_1 = 1\right) \times Prob\left(X_2 = 0\right) = e^{-\lambda \frac{T}{2}} \frac{\lambda T}{2} \times e^{-\lambda \frac{T}{2}} 
+\\
+\\
+Prob\left(X\right) = Prob\left(X_2 = 0 | X_1 = 1\right) = e^{-\lambda T} \left(\frac{\lambda T}{2}\right)
+\]
+
+<br>
+
+**Event Y**
+
+Let Event Y be the probability of 0 jump from interval $\left[0,\frac{T}{2}\right)$ and exactly 1 jump from interval $\left[\frac{T}{2},T\right]$:
+
+First, we find the probability of 0 jump occuring in the interval $\left[0,\frac{T}{2}\right)$:
+
+\[
+Prob\left(N_t = 0\right) = Prob\left(Y_1 = 0\right) = e^{-\lambda \frac{T}{2}}
+\]
+
+For interval $\left[\frac{T}{2},T\right]$, the interval length is the same as the first interval $\left[0,\frac{T}{2}\right]$. We can find the probability of 1 jump occuring in this interval:
+
+\[
+Prob\left(N_t = 1\right) = Prob\left(Y_2 = 1\right) = e^{-\lambda \frac{T}{2}}\frac{\left(\lambda \frac{T}{2}\right)^n}{n!} = e^{-\lambda \frac{T}{2}} \frac{\lambda T}{2}
+\]
+
+We can find the probability of **Event Y** occuring below:
+
+Where Prob($Y_2 = 1$) is conditional on Prob($Y_1 = 0$) for interval  $\left[0,\frac{T}{2}\right)$
+
+\[
+Prob\left(Y_1 = 0\right) \times Prob\left(Y_2 = 1\right) = e^{-\lambda \frac{T}{2}} \times e^{-\lambda \frac{T}{2}} \frac{\lambda T}{2}
+\\
+\\
+Prob\left(Y\right) = Prob\left(Y_2 = 1 | Y_1 = 0\right) = e^{-\lambda T} \left(\frac{\lambda T}{2}\right)
+\]
+
+### Probability Comparison
+
+Event A:
+
+$Prob\left(A\right) = \lambda Te^{-\lambda T}$
+
+Event X or Event Y:
+
+$Prob\left(X \cup Y\right) = Prob\left(X\right) + Prob\left(Y\right) = e^{-\lambda T} \left(\frac{\lambda T}{2}\right) + e^{-\lambda T} \left(\frac{\lambda T}{2}\right) = \lambda Te^{-\lambda T}$
+
+# 3.0 Programming the mathematical proof
+
+We can assign arbitrary numbers to the variables and conduct below checks:
+
+Set $\lambda$ = 0.5, T = 1, $\mu$ = $\lambda \frac{T}{2}$
+
+* Check that probabilities of both Events X and Y are the same
+* Calculate probabilities and check against inbuilt Poisson PMF function from Scipy Library
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+import numpy as np
+
+lamb = 0.5
+T = 1
+mu = lamb*(T/2)
+
+# Event X probabilities
+Prob_X1 = np.exp(-lamb*T/2)*(((lamb*T/2)**1)/1)
+Prob_X2 = np.exp(-lamb*T/2)
+
+# Event Y probabilities
+Prob_Y1 = np.exp(-lamb*T/2)
+Prob_Y2 = np.exp(-lamb*T/2)*(((lamb*T/2)**1)/1)
+
+print('Probability of 1 asset jump in interval [0,T/2]: '+str(Prob_X1))
+print('Probability of 0 asset jump in interval [T/2,0]: '+str(Prob_X2))
+print('Probability of Event X: '+str(Prob_X1*Prob_X2))
+print('Probability of 1 asset jump in interval [0,T/2]: '+str(Prob_Y1))
+print('Probability of 0 asset jump in interval [T/2,0]: '+str(Prob_Y2))
+print('Probability of Event Y: '+str(Prob_Y1*Prob_Y2))
+```
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+# Part A probability
+Prob_A = np.exp(-lamb*T)*(lamb*T)
+
+print('Probability of Event A: '+str(Prob_A))
+print('Probability of Event X or Event Y: '+str(Prob_X1*Prob_X2 + Prob_Y1*Prob_Y2))
+```
+
+### We can use the Poisson Probability Mass Function from the Scipy library to calculate the individual event probability for each aportioned intervals:
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+from scipy.stats import poisson
+
+# Event X
+PMF_X1 = poisson.pmf(1, mu)
+PMF_X2 = poisson.pmf(0, mu)
+
+# Event Y
+PMF_Y1 = poisson.pmf(0, mu)
+PMF_Y2 = poisson.pmf(1, mu)
+
+print('Probability of 1 asset jump in interval [0,T/2]: '+str(PMF_X1))
+print('Probability of 0 asset jump in interval [T/2,0]: '+str(PMF_X2))
+print('Probability of Event X: '+str(PMF_X1*PMF_X2))
+print('Probability of 0 asset jump in interval [0,T/2]: '+str(PMF_Y1))
+print('Probability of 1 asset jump in interval [T/2,0]: '+str(PMF_Y2))
+print('Probability of Event Y: '+str(PMF_Y1*PMF_Y2))
+```
+
+### Finally:
+
+```{python, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+# Event A vs (Event X or Event Y)
+PMF_A = poisson.pmf(1, mu*2)
+print('Probability of Event A: '+str(PMF_A))
+print('Probability of Event X or Event Y in interval [0,T]: '+str(PMF_X1*PMF_X2 + PMF_Y1*PMF_Y2))
+```
+Hence, we have proved that the event of 1 asset jump in interval $\left[0,T\right]$ in Part A gives rise to the exact same probability as:
+
+* The event of 1 jump in the interval $\left[0,\frac{T}{2}\right)$ and no jumps in interval $\left[\frac{T}{2},T\right]$
+
+**or**
+
+* The event of 0 asset jump in interval $\left[0,\frac{T}{2}\right)$ and 1 jump in interval $\left[\frac{T}{2},T\right]$ 
