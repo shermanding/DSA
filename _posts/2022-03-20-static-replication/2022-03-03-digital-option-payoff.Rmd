@@ -5,8 +5,8 @@ description: |
 author:
   - name: Sherman Ding
     url: https://www.linkedin.com/in/shermanding93/
-    affiliation: Singapore Management University
-    affiliation_url: https://www.smu.edu.sg/
+    affiliation: Derivative Pricing
+    affiliation_url: https://www.cfainstitute.org/en/membership/professional-development/refresher-readings/basics-derivative-pricing-valuation#:~:text=Derivatives%20are%20priced%20by%20creating,eliminates%20any%20possibility%20of%20arbitrage.
 date: 03-20-2022
 output:
   distill::distill_article:
